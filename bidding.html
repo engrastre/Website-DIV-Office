@@ -1,0 +1,181 @@
+{% extends "base.html" %}
+
+{% block title %}
+DEPED | CAREERS
+{% endblock %}
+
+{% block content %}
+
+<style>
+    /* Container styles */
+    .container {
+        display: flex; /* Use flexbox to layout children horizontally */
+        max-width: 1200px; /* Adjust the maximum width as needed */
+        margin: 0 auto; /* Center the container horizontally */
+        padding: 20px;
+        box-sizing: border-box; /* Ensure padding is included in the width */
+    }
+
+    /* Side navigation styles */
+    .side-nav {
+        width: 250px; /* Increased width for better fit */
+        padding: 20px; /* Adjusted padding for better spacing */
+        background-color: #f4f4f4;
+        border-radius: 8px;
+        font-family: 'Aptos', sans-serif;
+        margin-right: 20px; /* Space between the side nav and the content */
+        box-sizing: border-box; /* Ensure padding is included in the width */
+    }
+
+    .side-nav h2 {
+        margin: 0 0 10px 0; /* Space below the title */
+        font-size: 18px;
+    }
+
+    .side-nav p {
+        margin: 0; /* Remove default margin */
+        font-size: 14px;
+    }
+
+    .side-nav ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .side-nav li {
+        margin-bottom: 15px;
+    }
+
+    .side-nav li:first-child {
+        font-weight: bold;
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+    .side-nav a {
+        text-decoration: none;
+        color: #0044cc;
+        font-size: 16px;
+    }
+
+    .side-nav a:hover {
+        color: #002a80;
+        text-decoration: underline;
+    }
+
+    /* About text styling */
+    .text_about {
+        margin-bottom: 20px; /* Space below the text */
+        font-size: 14px;
+        line-height: 1.5; /* Line height for better readability */
+    }
+
+    /* Table container styles */
+    .table-container {
+        flex: 1; /* Allow the table container to take up the remaining space */
+        margin-top: 5px;
+    }
+
+    table {
+        width: 100%; /* Full width within container */
+        border-collapse: collapse;
+        margin-top: 20px; /* Space between title and table */
+    }
+
+    th, td {
+        border: 1px solid black; /* Basic border */
+        padding: 8px; /* More padding for readability */
+        text-align: left; /* Align text to the left */
+    }
+
+    th {
+        font-weight: normal;
+    }
+
+    /* Title styling */
+    .title-container {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .title-container::before {
+        content: "";
+        display: block;
+        width: 5px; /* Width of the line */
+        height: 40px; /* Height of the line */
+        background-color: navy; /* Navy blue color for the line */
+        margin-right: 10px; /* Space between line and title */
+    }
+
+    .title {
+        font-size: 24px; /* Size of the title text */
+        font-weight: bold; /* Bold text for the title */
+    }
+
+    /* Link styling */
+    .view-link {
+        color: blue; /* Link color */
+        text-decoration: none; /* Remove underline */
+        font-size: 14px; /* Font size for the link */
+    }
+
+    .view-link:hover {
+        text-decoration: underline; /* Underline on hover */
+    }
+
+    /* Centered column styling */
+    .center-col {
+        text-align: center; /* Center content horizontally */
+    }
+</style>
+
+<div class="container">
+    <div class="side-nav">
+        <h2><strong>About</strong></h2>
+        <div class="text_about">
+            <p>This page provides information about career opportunities in DepEd Division of Biñan.</p>
+        </div>
+        <ul>
+            <li><strong>Useful Links</strong></li>
+            <li><a href="{% url 'main:careers' %}">Careers</a></li>
+            <li><a href="{% url 'main:Bidding' %}">Bids Opportunities</a></li>
+            <li><a href="#division-memo">Division Memorandum</a></li>
+            <li><a href="#contact">Contact Us</a></li>
+        </ul>
+    </div>
+    <div class="table-container">
+        <div class="title-container">
+            <div class="title"> BIDS and OPPORTUNITIES</div>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width:15%">Project No.</th>
+                    <th style="width:15%">Project Name</th>
+                    <th style="width:15%">Enduser Unit</th>
+                    <th style="width:15%">Start Date</th>
+                    <th style="width:15%">Close Date</th>
+                    <th>View</th>
+                    <th>Download</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for bids in b_post %}
+                <tr>
+                    <td>{{bids.Project_no}}</td>
+                    <td>{{bids.Project_Name}}</td>
+                    <td>{{bids.Enduser_Unit}}</td>
+                    <td>{{bids.Start_Date}}</td>
+                    <td>{{bids.Close_Date}}</td>
+                    <td><a href="{{bids.bids_file.url}}">Preview</a></td>
+                    <td><a href="{{bids.bids_file.url}}">Download</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}
